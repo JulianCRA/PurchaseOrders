@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PurchaseOrders", "PurchaseOrders\PurchaseOrders.csproj", "{3CC026F6-560F-49AE-9A3A-9CF2BEA8F353}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User Controls", "User Controls\User Controls.csproj", "{559A1840-E816-4361-A2F1-EE4A093BEB1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{3CC026F6-560F-49AE-9A3A-9CF2BEA8F353}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CC026F6-560F-49AE-9A3A-9CF2BEA8F353}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CC026F6-560F-49AE-9A3A-9CF2BEA8F353}.Release|Any CPU.Build.0 = Release|Any CPU
+		{559A1840-E816-4361-A2F1-EE4A093BEB1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{559A1840-E816-4361-A2F1-EE4A093BEB1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{559A1840-E816-4361-A2F1-EE4A093BEB1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{559A1840-E816-4361-A2F1-EE4A093BEB1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
