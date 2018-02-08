@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace PurchaseOrders
 {
-    public interface IDatabaseEntity
+    public class UserInteractedEventArgs : EventArgs
     {
-        Boolean IsValid();
+        public String action;
+
+        public Int32 currentlySelected;
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PurchaseOrders
 {
-    class Supplier : IDatabaseEntity
+    public class Supplier : IDatabaseEntity
     {
         public String id { get; set; }
 

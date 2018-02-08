@@ -10,7 +10,13 @@ namespace PurchaseOrders
 {
     public static class DatabaseConnection
     {
-        
+        public enum QueryStatus
+        {
+            Success = 1,
+            Fail = 2,
+            DataError = 3
+        }
+
         private static SqlConnection dbconn;
 
         public static String connError { get; private set; }
