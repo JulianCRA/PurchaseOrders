@@ -55,6 +55,10 @@
     <Compile Include="IDatabaseEntity.cs" />
     <Compile Include="IGateway.cs" />
     <Compile Include="IPresenter.cs" />
+    <Compile Include="Item\Item.cs" />
+    <Compile Include="Item\ItemGateway.cs" />
+    <Compile Include="Item\ItemPresenter.cs" />
+    <Compile Include="Item\Price.cs" />
     <Compile Include="IView.cs" />
     <Compile Include="Presenter.cs" />
     <Compile Include="Program.cs" />
