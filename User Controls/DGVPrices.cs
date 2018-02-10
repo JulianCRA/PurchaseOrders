@@ -14,7 +14,8 @@ namespace UserControls
     public partial class DGVPrices: UserControl
     {
         private Boolean shouldIgnoreValidation = true;
-        private DataTable sourceTable;
+
+        private Boolean isBlinking = false;
         
         public DGVPrices()
         {
@@ -23,6 +24,7 @@ namespace UserControls
             this.dgv.CellBeginEdit += dgv_CellBeginEdit;
             this.dgv.RowValidating += dgv_RowValidating;
             this.dgv.CellClick += dgv_CellClick;
+            this.dgv.UserDeletingRow += dgv_UserDeletingRow;
             this.dgv.UserDeletedRow += dgv_UserDeletedRow;
 
             ColumnCurrency.DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing;
@@ -30,8 +32,7 @@ namespace UserControls
 
         public void populatePrices(DataTable table)
         {
-            this.sourceTable = table;
-            this.dgv.DataSource = sourceTable;
+            this.dgv.DataSource = table;
             this.dgv.ClearSelection();
             this.dgv.CurrentCell = null;
         }
@@ -49,6 +50,16 @@ namespace UserControls
 
         private void dgv_UserDeletedRow(object source, DataGridViewRowEventArgs e)
         {
+            /*dgv.ClearSelection();
+            shouldIgnoreValidation = true;*/
+        }
+
+        private void dgv_UserDeletingRow(object source, DataGridViewRowCancelEventArgs e)
+        {
+            e.Cancel = true;
+            dgv["ColumnFFD", e.Row.Index].Value = true;
+            dgv.CurrentCell = null;
+            dgv.Rows[e.Row.Index].Visible = false;
             dgv.ClearSelection();
             shouldIgnoreValidation = true;
         }
@@ -74,10 +85,8 @@ namespace UserControls
 
         private void dgv_RowValidating(object source, DataGridViewCellCancelEventArgs e)
         {
-            db("validation triggered");
             if (!shouldIgnoreValidation)
             {
-                db("validation executed");
                 if (!validateRow(e.RowIndex))
                 {
                     rowBlink(e.RowIndex, Color.DarkSalmon);
@@ -94,6 +103,7 @@ namespace UserControls
 
         private Boolean validateRow(Int32 rowIndex)
         {
+            String i = dgv["ColumnPriceID", rowIndex].Value?.ToString() ?? String.Empty;
             String p = dgv["ColumnPrice", rowIndex].Value?.ToString() ?? String.Empty;
             String c = dgv["ColumnCurrency", rowIndex].Value?.ToString() ?? String.Empty;
             String u = dgv["ColumnUnit", rowIndex].Value?.ToString() ?? String.Empty;
@@ -101,18 +111,19 @@ namespace UserControls
             Regex rgx1 = new Regex(@"^[0-9]{1,18}(?:(\.|,)[0-9]{1,2})?$");
             Regex rgx2 = new Regex(@"^[a-zA-Z]{1,10}$");
 
-            if (String.IsNullOrWhiteSpace(p) && String.IsNullOrWhiteSpace(c) && String.IsNullOrWhiteSpace(u)) db("WHITESPACE");
             if (String.IsNullOrWhiteSpace(p) && String.IsNullOrWhiteSpace(c) && String.IsNullOrWhiteSpace(u)) return false;
-            if (!rgx1.IsMatch(p) || !ColumnCurrency.Items.Contains(c) || !rgx2.IsMatch(u)) db("NO REGEX");
             if (!rgx1.IsMatch(p) || !ColumnCurrency.Items.Contains(c) || !rgx2.IsMatch(u)) return false;
+
+            if (String.IsNullOrWhiteSpace(i)) dgv["ColumnPriceID", rowIndex].Value = "0";
 
             return true;
         }
 
         private void rowBlink(Int32 index, Color c)
         {
-            if (index >= 0)
+            if (index >= 0 && !isBlinking)
             {
+                isBlinking = true;
                 Int32 times = 0;
                 Timer t = new Timer();
                 t.Interval = 70;
@@ -152,16 +163,11 @@ namespace UserControls
                     else
                     {
                         t.Stop();
+                        isBlinking = false;
                     }
 
                 }
             }
-        }
-
-        public void db(object s)
-        {
-            if (s == null) s = "null";
-            this.debug.Text += s.ToString() + " :: ";
         }
     }
 }

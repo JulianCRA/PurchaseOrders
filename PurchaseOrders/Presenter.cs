@@ -73,6 +73,9 @@ namespace PurchaseOrders
                     SynchronizeView();
                     _form.DisplayMsg(1, "Changes saved successfully");
                     break;
+                case DatabaseConnection.QueryStatus.DataError:
+                    _form.DisplayMsg(0, "Data format invalid");
+                    break;
             }
         }
 

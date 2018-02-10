@@ -43,10 +43,10 @@
             this.ColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnSupplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvPrices = new UserControls.DGVPrices();
             this.formFieldDescription = new UserControls.FormField();
             this.formFieldName = new UserControls.FormField();
             this.formFieldID = new UserControls.FormField();
-            this.dgvPrices = new UserControls.DGVPrices();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.groupBoxOptions.SuspendLayout();
             this.SuspendLayout();
@@ -167,11 +167,11 @@
             // 
             // debugBox
             // 
-            this.debugBox.Location = new System.Drawing.Point(-2, 427);
+            this.debugBox.Location = new System.Drawing.Point(-2, 392);
             this.debugBox.Multiline = true;
             this.debugBox.Name = "debugBox";
             this.debugBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.debugBox.Size = new System.Drawing.Size(424, 148);
+            this.debugBox.Size = new System.Drawing.Size(451, 183);
             this.debugBox.TabIndex = 15;
             // 
             // comboBoxSupplier
@@ -230,6 +230,16 @@
             this.ColumnSupplier.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ColumnSupplier.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // dgvPrices
+            // 
+            this.dgvPrices.Location = new System.Drawing.Point(455, 373);
+            this.dgvPrices.Margin = new System.Windows.Forms.Padding(0);
+            this.dgvPrices.MaximumSize = new System.Drawing.Size(293, 112);
+            this.dgvPrices.MinimumSize = new System.Drawing.Size(293, 112);
+            this.dgvPrices.Name = "dgvPrices";
+            this.dgvPrices.Size = new System.Drawing.Size(293, 112);
+            this.dgvPrices.TabIndex = 22;
+            // 
             // formFieldDescription
             // 
             this.formFieldDescription.assignManually = true;
@@ -279,15 +289,6 @@
             this.formFieldID.text = "";
             this.formFieldID.textMaxLenght = 7;
             this.formFieldID.title = "ID:";
-            // 
-            // dgvPrices
-            // 
-            this.dgvPrices.Location = new System.Drawing.Point(455, 342);
-            this.dgvPrices.Margin = new System.Windows.Forms.Padding(0);
-            this.dgvPrices.MinimumSize = new System.Drawing.Size(293, 112);
-            this.dgvPrices.Name = "dgvPrices";
-            this.dgvPrices.Size = new System.Drawing.Size(294, 215);
-            this.dgvPrices.TabIndex = 22;
             // 
             // ItemForm
             // 

@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace PurchaseOrders
 {
-    public class Price
+    public class Price : IDatabaseEntity
     {
         public String ID { get; set; }
+
+        public String Item { get; set; }
 
         public String PricePerUnit { get; set; }
 
@@ -16,17 +18,22 @@ namespace PurchaseOrders
 
         public String Unit { get; set; }
 
-        public Price(String i, String p, String c, String u)
+        public Boolean ffd { get; set; }
+
+        public Price(String id, String i, String p, String c, String u, Boolean d = false)
         {
-            this.ID = i;
+            this.ID = id;
+            this.Item = i;
             this.PricePerUnit = p;
             this.Currency = c;
             this.Unit = u;
+            this.ffd = d;
         }
 
-        public bool validate()
+        public bool IsValid()
         {
             if (String.IsNullOrWhiteSpace(this.ID)) return false;
+            if (String.IsNullOrWhiteSpace(this.Item)) return false;
             if (String.IsNullOrWhiteSpace(this.PricePerUnit)) return false;
             if (String.IsNullOrWhiteSpace(this.Currency)) return false;
             if (String.IsNullOrWhiteSpace(this.Unit)) return false;
@@ -34,6 +41,15 @@ namespace PurchaseOrders
             // Implement REGEX validation
 
             return true;
+        }
+
+        public override string ToString()
+        {
+            return "[Price ID: " + this.ID +
+                   " - Price Item: " + this.Item +
+                   " - Price PPU: " + this.PricePerUnit +
+                   " - Price Curr: " + this.Currency +
+                   " - Price Unit: " + this.Unit + "]";
         }
     }
 }

@@ -42,6 +42,19 @@ namespace PurchaseOrders
             }
         }
 
+        private Boolean IsValid
+        {
+            get
+            {
+                if (!this.formFieldID.isValid) return false;
+                if (!this.formFieldName.isValid) return false;
+                if (!this.formFieldDescription.isValid) return false;
+                if (this.comboBoxSupplier.SelectedIndex == -1) return false;
+                //if (this.dgvPrices.getPricesList().Rows.Count <= 0) return false;
+                return true;
+            }
+        }
+
         #region Event Dispatching
 
         private Boolean ignoreSelectedRowChanged = true;
@@ -147,17 +160,14 @@ namespace PurchaseOrders
             this.formFieldID.assignManually = this.checkBoxAM.Checked;
             if (!this.checkBoxAM.Checked)
             {
-                //Supplier s = (Supplier)getForm();
                 OnReset();
-                //formFieldName.text = s.name;
-                //formFieldEmail.text = s.email;
             }
 
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            /*if (this.IsValid)
+            if (this.IsValid)
             {
                 if (radioButtonNew.Checked)
                 {
@@ -171,7 +181,7 @@ namespace PurchaseOrders
             else
             {
                 this.DisplayMsg(0, "Please make certain that all the input data is written correctly");
-            }*/
+            }
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -183,22 +193,36 @@ namespace PurchaseOrders
 
         public IDatabaseEntity GetFormInfo()
         {
-            throw new NotImplementedException();
+            List<Price> list = new List<Price>();
+            DataTable prices = dgvPrices.getPricesList();
+            foreach(DataRow row in prices.Rows)
+            {
+                list.Add(new Price(row["priceid"].ToString(), formFieldID.text, row["ppu"].ToString(), row["currency"].ToString(), row["unit"].ToString(), row["flagfordelete"].ToString() == "True"));
+            }
+            Item item = new Item(formFieldID.text, comboBoxSupplier.SelectedValue.ToString(), formFieldName.text, formFieldDescription.text, list);
+            return item;
         }
 
         public void DeleteSelected()
         {
-            throw new NotImplementedException();
+            if (this.SelectedIndex != String.Empty)
+            {
+                DialogResult dr = MessageBox.Show("You are about to delete this record from the system. Do you want to delete it?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (dr == DialogResult.Yes)
+                {
+                    OnDelete();
+                }
+            }
         }
 
-        public void db(string s)
+        public void db(object o)
         {
-            throw new NotImplementedException();
+            this.debugBox.Text += o?.ToString() + " :: ";
         }
 
         public void EnterCreationMode(string newid = "")
         {
-            this.formFieldID.text = newid;
+            this.formFieldID.text = newid.PadLeft(7, '0');
             this.formFieldName.text = String.Empty;
             this.formFieldDescription.text = String.Empty;
             this.comboBoxSupplier.SelectedIndex = -1;
@@ -208,6 +232,7 @@ namespace PurchaseOrders
             ptable.Columns.Add(new DataColumn("ppu"));
             ptable.Columns.Add(new DataColumn("currency"));
             ptable.Columns.Add(new DataColumn("unit"));
+            ptable.Columns.Add(new DataColumn("flagfordelete"));
             this.dgvPrices.populatePrices(ptable);
 
             this.checkBoxAM.Checked = false;
@@ -224,16 +249,17 @@ namespace PurchaseOrders
         public void EnterEditionMode(IDatabaseEntity obj)
         {
             Item i = (Item)obj;
-            this.formFieldID.text = i.ID;
+            this.formFieldID.text = i.ID.PadLeft(7, '0');
             this.formFieldName.text = i.Name;
             this.formFieldDescription.text = i.Description;
-            this.comboBoxSupplier.SelectedValue = comboBoxSupplier.FindStringExact(i.Supplier) + 1;
+            this.comboBoxSupplier.SelectedIndex = comboBoxSupplier.FindStringExact(i.Supplier);
 
             DataTable ptable = new DataTable();
             ptable.Columns.Add(new DataColumn("priceid"));
             ptable.Columns.Add(new DataColumn("ppu"));
             ptable.Columns.Add(new DataColumn("currency"));
             ptable.Columns.Add(new DataColumn("unit"));
+            ptable.Columns.Add(new DataColumn("flagfordelete"));
             foreach (Price p in i.Prices)
             {
                 ptable.Rows.Add(p.ID, p.PricePerUnit, p.Currency, p.Unit);
@@ -251,15 +277,15 @@ namespace PurchaseOrders
 
         public void DisplayMsg(int type, string msg)
         {
-            throw new NotImplementedException();
+            switch (type)
+            {
+                case 1:
+                    MessageBox.Show(msg, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+                case 0:
+                    MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
         }
-
-        
-
-        
-
-        
-
-        
     }
 }

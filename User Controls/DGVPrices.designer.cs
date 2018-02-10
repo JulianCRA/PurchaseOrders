@@ -33,7 +33,7 @@
             this.ColumnPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCurrency = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.ColumnUnit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.debug = new System.Windows.Forms.TextBox();
+            this.ColumnFFD = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,12 +44,14 @@
             this.ColumnPriceID,
             this.ColumnPrice,
             this.ColumnCurrency,
-            this.ColumnUnit});
-            this.dgv.Location = new System.Drawing.Point(3, 3);
+            this.ColumnUnit,
+            this.ColumnFFD});
+            this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv.Location = new System.Drawing.Point(0, 0);
             this.dgv.MultiSelect = false;
             this.dgv.Name = "dgv";
             this.dgv.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgv.Size = new System.Drawing.Size(282, 114);
+            this.dgv.Size = new System.Drawing.Size(293, 112);
             this.dgv.TabIndex = 0;
             // 
             // ColumnPriceID
@@ -93,38 +95,37 @@
             this.ColumnUnit.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ColumnUnit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // debug
+            // ColumnFFD
             // 
-            this.debug.Location = new System.Drawing.Point(4, 123);
-            this.debug.Multiline = true;
-            this.debug.Name = "debug";
-            this.debug.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.debug.Size = new System.Drawing.Size(281, 89);
-            this.debug.TabIndex = 1;
+            this.ColumnFFD.DataPropertyName = "flagfordelete";
+            this.ColumnFFD.FalseValue = "0";
+            this.ColumnFFD.HeaderText = "Delete";
+            this.ColumnFFD.Name = "ColumnFFD";
+            this.ColumnFFD.TrueValue = "1";
+            this.ColumnFFD.Visible = false;
             // 
             // DGVPrices
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.debug);
             this.Controls.Add(this.dgv);
             this.Margin = new System.Windows.Forms.Padding(0);
+            this.MaximumSize = new System.Drawing.Size(293, 112);
             this.MinimumSize = new System.Drawing.Size(293, 112);
             this.Name = "DGVPrices";
-            this.Size = new System.Drawing.Size(294, 215);
+            this.Size = new System.Drawing.Size(293, 112);
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.DataGridView dgv;
-        private System.Windows.Forms.TextBox debug;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPriceID;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPrice;
         private System.Windows.Forms.DataGridViewComboBoxColumn ColumnCurrency;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnUnit;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnFFD;
     }
 }

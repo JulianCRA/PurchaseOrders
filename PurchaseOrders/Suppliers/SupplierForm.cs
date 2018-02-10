@@ -194,14 +194,14 @@ namespace PurchaseOrders
             }
         }
 
-        public void db(string s)
+        public void db(object s)
         {
-            debugBox.Text += s + " :: ";
+            debugBox.Text += s.ToString() + " :: ";
         }
 
         public void EnterCreationMode(String nextID = "")
         {
-            this.formFieldID.text = nextID;
+            this.formFieldID.text = nextID.PadLeft(7, '0');
             this.formFieldName.text = String.Empty;
             this.formFieldEmail.text = String.Empty;
 
@@ -219,7 +219,7 @@ namespace PurchaseOrders
         public void EnterEditionMode(IDatabaseEntity obj)
         {
             Supplier s = (Supplier)obj;
-            this.formFieldID.text = s.id;
+            this.formFieldID.text = s.id.PadLeft(7, '0');
             this.formFieldName.text = s.name;
             this.formFieldEmail.text = s.email;
 

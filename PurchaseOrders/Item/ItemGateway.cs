@@ -12,7 +12,14 @@ namespace PurchaseOrders
     {
         public DatabaseConnection.QueryStatus Delete(string id)
         {
-            throw new NotImplementedException();
+            SqlCommand command = new SqlCommand("SetInactive", DatabaseConnection.getConn());
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@tbname", "Item");
+            command.Parameters.AddWithValue("@token", Int32.Parse(id));
+            command.ExecuteNonQuery();
+
+            return DatabaseConnection.QueryStatus.Success;
         }
 
         public IDatabaseEntity Find(string id)
@@ -34,7 +41,7 @@ namespace PurchaseOrders
                 List<Price> l = new List<Price>();
                 while (rdr2.Read())
                 {
-                    Price p = new Price(rdr2["ID"].ToString(), rdr2["PricePerUnit"].ToString(), rdr2["Currency"].ToString(), rdr2["Unit"].ToString());
+                    Price p = new Price(rdr2["ID"].ToString(), rdr["ID"].ToString(), rdr2["PricePerUnit"].ToString(), rdr2["Currency"].ToString(), rdr2["Unit"].ToString());
                     l.Add(p);
                 }
                 rdr2.Close();
@@ -54,7 +61,30 @@ namespace PurchaseOrders
 
         public DatabaseConnection.QueryStatus Insert(IDatabaseEntity obj)
         {
-            throw new NotImplementedException();
+            Item item = (Item)obj;
+
+            if (item.IsValid())
+            {
+                /*SqlCommand command = new SqlCommand("AddSupplier", DatabaseConnection.getConn());
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@Id", Int32.Parse(s.id));
+                command.Parameters.AddWithValue("@Name", s.name);
+                command.Parameters.AddWithValue("@Email", s.email);
+
+                SqlDataReader rdr = command.ExecuteReader();
+                if (rdr.Read() && (Boolean)rdr["Success"])
+                {
+                    rdr.Close();
+                    return DatabaseConnection.QueryStatus.Success;  //  successful transaction
+                }
+                else
+                {
+                    rdr.Close();
+                    return DatabaseConnection.QueryStatus.Fail;  // transaction failed at database level
+                }*/
+            }
+            return DatabaseConnection.QueryStatus.DataError;
         }
 
         public IEnumerable<IDatabaseEntity> SearchByName(string token)
@@ -76,7 +106,46 @@ namespace PurchaseOrders
 
         public DatabaseConnection.QueryStatus Update(IDatabaseEntity obj)
         {
-            throw new NotImplementedException();
+            Item item = (Item)obj;
+            if (item.IsValid())
+            {
+                SqlCommand command = new SqlCommand("UpdateItem", DatabaseConnection.getConn());
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@n", item.Name);
+                command.Parameters.AddWithValue("@d", item.Description);
+                command.Parameters.AddWithValue("@i", Int32.Parse(item.ID));
+                command.Parameters.AddWithValue("@s", Int32.Parse(item.Supplier));
+                command.ExecuteNonQuery();
+
+                foreach (Price p in item.Prices)
+                {
+                    if (!p.ffd)    // if the price entry is not flagged for deletion
+                    {
+                        command = new SqlCommand("AddPrice", DatabaseConnection.getConn());
+                        command.CommandType = CommandType.StoredProcedure;
+                    
+                        command.Parameters.AddWithValue("@id", Int32.Parse(p.ID));
+                        command.Parameters.AddWithValue("@item", Int32.Parse(p.Item));
+                        command.Parameters.AddWithValue("@ppu", p.PricePerUnit);
+                        command.Parameters.AddWithValue("@currency", p.Currency);
+                        command.Parameters.AddWithValue("@unit", p.Unit);
+
+                        command.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        command = new SqlCommand("SetInactive", DatabaseConnection.getConn());
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.AddWithValue("@tbname", "Price");
+                        command.Parameters.AddWithValue("@token", Int32.Parse(p.ID));
+                        command.ExecuteNonQuery();
+                    }
+                }
+                return DatabaseConnection.QueryStatus.Success;
+            }
+            return DatabaseConnection.QueryStatus.DataError;   // Invalid data formatting
         }
 
         public DataTable GetSuppliers()

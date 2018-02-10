@@ -47,8 +47,27 @@ namespace PurchaseOrders
 
             rgx = new Regex(@"^(?=\S)( |.){0,14}\S$");
             if (!rgx.IsMatch(this.Name)) return false;
+
+            foreach(Price p in this.Prices)
+            {
+                if (!p.IsValid()) return false;
+            }
             
             return true;
+        }
+
+        public override string ToString()
+        {
+            String s = "";
+            foreach(Price p in this.Prices)
+            {
+                s += p.ToString();
+            }
+
+            return "Item ID: " + this.ID +
+                   " - Item Supp: " + this.Supplier +
+                   " - Item Name: " + this.Name +
+                   " - Item Desc: " + this.Description + s + "]";
         }
     }
 }

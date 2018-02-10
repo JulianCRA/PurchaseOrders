@@ -21,7 +21,7 @@ namespace PurchaseOrders
 
         void DeleteSelected();
 
-        void db(String s);
+        void db(Object s);
 
         void EnterCreationMode(String newid = "");
 
