@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,25 @@ namespace PurchaseOrders
             customizeView();
         }
 
+        override public void SynchronizeView()
+        {
+            List<Item> l = _list.SearchByName(_form.Token) as List<Item>;
+
+            DataTable dt = new DataTable();
+
+            dt.Columns.Add(new DataColumn("id"));
+            dt.Columns.Add(new DataColumn("name"));
+            dt.Columns.Add(new DataColumn("supplier"));
+
+            foreach (Item i in l)
+            {
+                dt.Rows.Add(i.ID, i.Name, i.Supplier);
+            }
+
+            _form.Populate(dt);
+            _form.EnterCreationMode(_list.GetNextID());
+        }
+
         public void customizeView()
         {
             popSuppliers();
@@ -38,7 +58,7 @@ namespace PurchaseOrders
 
         private void popCurrency()
         {
-            _form.popCurrencies(new List<String> { "USD", "VND", "EUR" });
+            _form.popCurrencies(new List<String> { "USD", "VND", "EUR" }); // Can be replaced with values from a table
         }
     }
 }

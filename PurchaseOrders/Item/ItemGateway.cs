@@ -59,7 +59,19 @@ namespace PurchaseOrders
 
         public IEnumerable<IDatabaseEntity> SearchByName(string token)
         {
-            throw new NotImplementedException();
+            SqlCommand command = new SqlCommand("SearchItem", DatabaseConnection.getConn());
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@token", token);
+
+            SqlDataReader rdr = command.ExecuteReader();
+            List<Item> list = new List<Item>();
+            while (rdr.Read())
+            {
+                Item i = new Item(rdr["ID"].ToString(), rdr["Supplier"].ToString(), rdr["Name"].ToString(), String.Empty, null);
+                list.Add(i);
+            }
+
+            return list;
         }
 
         public DatabaseConnection.QueryStatus Update(IDatabaseEntity obj)

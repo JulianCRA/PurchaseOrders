@@ -41,6 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DGVPrices.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DGVPrices.designer.cs">
+      <DependentUpon>DGVPrices.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormField.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -51,6 +57,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DGVPrices.resx">
+      <DependentUpon>DGVPrices.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormField.resx">
       <DependentUpon>FormField.cs</DependentUpon>
     </EmbeddedResource>

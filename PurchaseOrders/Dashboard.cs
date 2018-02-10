@@ -34,10 +34,9 @@ namespace PurchaseOrders
             ItemGateway repository = new ItemGateway();
             ItemForm view = new ItemForm();
 
-            var presenter = new Item.ItemPresenter(view, repository);
-            //presenter.customizeView();
+            var presenter = new ItemPresenter(view, repository);
             view.MdiParent = this;
-            view.Show();*/
+            view.Show();
         }
     }
 }
