@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.dgv = new System.Windows.Forms.DataGridView();
+            this.ColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSupplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonClear = new System.Windows.Forms.Button();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.groupBoxOptions = new System.Windows.Forms.GroupBox();
@@ -37,12 +40,8 @@
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.checkBoxAM = new System.Windows.Forms.CheckBox();
-            this.debugBox = new System.Windows.Forms.TextBox();
             this.comboBoxSupplier = new System.Windows.Forms.ComboBox();
             this.labelSupplier = new System.Windows.Forms.Label();
-            this.ColumnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnSupplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvPrices = new UserControls.DGVPrices();
             this.formFieldDescription = new UserControls.FormField();
             this.formFieldName = new UserControls.FormField();
@@ -72,6 +71,42 @@
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv.Size = new System.Drawing.Size(423, 487);
             this.dgv.TabIndex = 0;
+            // 
+            // ColumnID
+            // 
+            this.ColumnID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColumnID.DataPropertyName = "id";
+            this.ColumnID.FillWeight = 30F;
+            this.ColumnID.HeaderText = "ID";
+            this.ColumnID.MaxInputLength = 10;
+            this.ColumnID.Name = "ColumnID";
+            this.ColumnID.ReadOnly = true;
+            this.ColumnID.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.ColumnID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // ColumnName
+            // 
+            this.ColumnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColumnName.DataPropertyName = "name";
+            this.ColumnName.FillWeight = 30F;
+            this.ColumnName.HeaderText = "Name";
+            this.ColumnName.MaxInputLength = 15;
+            this.ColumnName.Name = "ColumnName";
+            this.ColumnName.ReadOnly = true;
+            this.ColumnName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.ColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // ColumnSupplier
+            // 
+            this.ColumnSupplier.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColumnSupplier.DataPropertyName = "supplier";
+            this.ColumnSupplier.FillWeight = 40F;
+            this.ColumnSupplier.HeaderText = "Supplier";
+            this.ColumnSupplier.MaxInputLength = 30;
+            this.ColumnSupplier.Name = "ColumnSupplier";
+            this.ColumnSupplier.ReadOnly = true;
+            this.ColumnSupplier.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.ColumnSupplier.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // buttonClear
             // 
@@ -165,15 +200,6 @@
             this.checkBoxAM.UseVisualStyleBackColor = true;
             this.checkBoxAM.CheckedChanged += new System.EventHandler(this.checkBoxAM_CheckedChanged);
             // 
-            // debugBox
-            // 
-            this.debugBox.Location = new System.Drawing.Point(-2, 392);
-            this.debugBox.Multiline = true;
-            this.debugBox.Name = "debugBox";
-            this.debugBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.debugBox.Size = new System.Drawing.Size(451, 183);
-            this.debugBox.TabIndex = 15;
-            // 
             // comboBoxSupplier
             // 
             this.comboBoxSupplier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -193,42 +219,6 @@
             this.labelSupplier.Size = new System.Drawing.Size(80, 20);
             this.labelSupplier.TabIndex = 21;
             this.labelSupplier.Text = "Supplier:";
-            // 
-            // ColumnID
-            // 
-            this.ColumnID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColumnID.DataPropertyName = "id";
-            this.ColumnID.FillWeight = 30F;
-            this.ColumnID.HeaderText = "ID";
-            this.ColumnID.MaxInputLength = 10;
-            this.ColumnID.Name = "ColumnID";
-            this.ColumnID.ReadOnly = true;
-            this.ColumnID.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ColumnID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // ColumnName
-            // 
-            this.ColumnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColumnName.DataPropertyName = "name";
-            this.ColumnName.FillWeight = 30F;
-            this.ColumnName.HeaderText = "Name";
-            this.ColumnName.MaxInputLength = 15;
-            this.ColumnName.Name = "ColumnName";
-            this.ColumnName.ReadOnly = true;
-            this.ColumnName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // ColumnSupplier
-            // 
-            this.ColumnSupplier.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColumnSupplier.DataPropertyName = "supplier";
-            this.ColumnSupplier.FillWeight = 40F;
-            this.ColumnSupplier.HeaderText = "Supplier";
-            this.ColumnSupplier.MaxInputLength = 30;
-            this.ColumnSupplier.Name = "ColumnSupplier";
-            this.ColumnSupplier.ReadOnly = true;
-            this.ColumnSupplier.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ColumnSupplier.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // dgvPrices
             // 
@@ -301,7 +291,6 @@
             this.Controls.Add(this.formFieldDescription);
             this.Controls.Add(this.formFieldName);
             this.Controls.Add(this.formFieldID);
-            this.Controls.Add(this.debugBox);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.groupBoxOptions);
@@ -334,7 +323,6 @@
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.CheckBox checkBoxAM;
-        private System.Windows.Forms.TextBox debugBox;
         private UserControls.FormField formFieldID;
         private UserControls.FormField formFieldName;
         private UserControls.FormField formFieldDescription;

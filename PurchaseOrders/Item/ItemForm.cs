@@ -217,7 +217,7 @@ namespace PurchaseOrders
 
         public void db(object o)
         {
-            this.debugBox.Text += o?.ToString() + " :: ";
+            return;
         }
 
         public void EnterCreationMode(string newid = "")

@@ -75,6 +75,7 @@
             this.purchaseOrdersToolStripMenuItem.Name = "purchaseOrdersToolStripMenuItem";
             this.purchaseOrdersToolStripMenuItem.Size = new System.Drawing.Size(105, 20);
             this.purchaseOrdersToolStripMenuItem.Text = "Purchase Orders";
+            this.purchaseOrdersToolStripMenuItem.Click += new System.EventHandler(this.purchaseOrdersToolStripMenuItem_Click);
             // 
             // Dashboard
             // 
