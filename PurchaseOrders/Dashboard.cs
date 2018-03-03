@@ -12,8 +12,6 @@ namespace PurchaseOrders
 {
     public partial class Dashboard : Form
     {
-        public List<Supplier> lalista;
-
         public Dashboard()
         {
             InitializeComponent();
